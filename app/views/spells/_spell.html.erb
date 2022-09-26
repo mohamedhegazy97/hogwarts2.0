@@ -1,0 +1,9 @@
+<li id="spell-<%= spell.id %>">
+<%= link_to gravatar_for(spell.user), spell.user %>
+<span class="user"><%= link_to spell.user.name, spell.user %></span>
+<span class="short_name"><%= spell.short_name %></span>
+<span class="description"><%= spell.description %></span>
+<span class="timestamp">
+Posted <%= time_ago_in_words(spell.created_at) %> ago.
+</span>
+</li>

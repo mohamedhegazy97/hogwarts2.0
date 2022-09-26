@@ -1,0 +1,42 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+<aside class="col-md-4">
+<section class="user_info">
+<h1>
+<% if @user.image.attached?  %>
+<%= image_tag @user.display_image %>
+<% else  %>
+<%= gravatar_for @user %>
+<% end  %>
+<%= @user.name %>
+<h1></h1>
+<%= @user.hogwarts_house %>
+</h1>
+</section>
+<section class="stats">
+<%= render 'shared/stats' %>
+</section>
+</aside>
+<div class="col-md-8">
+<%= render 'follow_form' if logged_in? %>
+<% if @user.spells.any? %>
+<h3>Spells (<%= @user.spells.count %>)</h3>
+<ol class="spells">
+<% @spells.each do |spell| %>
+<li id="spell-<%= spell.id %>">
+<%= link_to gravatar_for(spell.user), spell.user %>
+<span class="user"><%= link_to spell.user.name, spell.user %></span>
+<span class="short_name"><%= spell.short_name %></span>
+<span class="description"><%= spell.description %></span>
+<span class="timestamp">
+Posted <%= time_ago_in_words(spell.created_at) %> ago.
+</span>
+<%= link_to "delete", spell, method: :delete,
+data: { confirm: "You sure?" } %>
+<h1></h1>
+</li>
+<% end %>
+</ol>
+<% end %>
+</div>
+</div>

@@ -1,0 +1,8 @@
+<% if current_user.image.attached?  %>
+<%= image_tag current_user.display_image %>
+<% else  %>
+<%= gravatar_for @current_user %>
+<% end  %>
+<h1><%= current_user.name %></h1>
+<span><%= link_to "view my profile", current_user %></span>
+<span><%= pluralize(current_user.spells.count, "spell") %></span>

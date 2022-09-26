@@ -1,0 +1,19 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+<ul class="users">
+<% @users.each do |user| %>
+<li>
+<% if user.image.attached?  %>
+<%= image_tag user.display_image %>
+<% else  %>
+<%= gravatar_for @current_user %>
+<% end  %>
+<%= link_to user.name, user %>
+<% if current_user.admin? && !current_user?(user) %>
+| <%= link_to "delete", user, method: :delete,
+data: { confirm: "You sure?" } %>
+|<%= link_to "Update profile", edit_user_path(user)%>
+<% end %>
+</li>
+<% end %>
+</ul>

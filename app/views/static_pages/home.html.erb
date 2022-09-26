@@ -1,0 +1,24 @@
+<% if logged_in? %>
+<div class="row">
+<aside class="col-md-4">
+<section class="user_info">
+<%= render 'shared/user_info' %>
+</section>
+<section class="stats">
+<%= render 'shared/stats' %>
+</section>
+<section class="spell_form">
+<%= render 'shared/spell_form' %>
+</section>
+</aside>
+</div>
+</div>
+<% else %>
+<% provide(:title, "Home") %>
+<h1>Hogwarts</h1>
+<p>
+This is the home page for the Hogwarts
+</p>
+<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+</div>
+<% end %>

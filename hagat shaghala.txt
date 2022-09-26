@@ -1,0 +1,6 @@
+static pages 
+sign up
+login with remember me 
+edit and update 
+logout 
+
