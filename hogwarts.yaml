@@ -1,0 +1,12 @@
+# TO START APP
+# enter this command in terminal 
+# docker-compose -f hogwarts.yaml up
+# must be logged in docker hub
+
+
+version: "3.4"
+services: 
+  Hogwarts:
+    image: mohamedhegazy/hogwarts:v1
+    ports:
+    - "3000:3000"

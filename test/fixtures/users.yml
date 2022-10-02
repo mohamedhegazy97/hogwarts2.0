@@ -1,0 +1,16 @@
+michael:
+  name: Michael Example
+  email: michael@example.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+  birth_date: "1997-02-02"
+  ARMU: false
+  bio: ""
+inactive:
+  name: Inactive User
+  email: inactive@example.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  birth_date: "1989-05-05"
+  ARMU: false
+  bio: ""
