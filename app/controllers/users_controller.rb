@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
   def create
     if current_user && !current_user.admin?
-      
       @user = User.new(user_params)
       @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
       @user.image.attach(params[:user][:image])
