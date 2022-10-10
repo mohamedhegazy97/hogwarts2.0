@@ -20,13 +20,13 @@ class UsersController < ApplicationController
   def create
     if current_user && !current_user.admin?
       @user = User.new(user_params)
+      @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
       @user.image.attach(params[:user][:image])
         if @user.save
-          UserMailer.welcomin_mail(@user).deliver_now
+          send_welcome_mail(@user)
           reset_session
           log_in @user
           flash.now[:success] = "Welcome to the hogwarts"
-          @user.update(hogwarts_house: ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample )
           redirect_to @user
           # Handle a successful save.
         else
@@ -34,10 +34,10 @@ class UsersController < ApplicationController
         end
     else
       @user = User.new(user_params)
+      @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
       @user.image.attach(params[:user][:image])
         if @user.save
-          UserMailer.welcomin_mail(@user).deliver_now
-          @user.update(hogwarts_house: ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample )
+          send_welcome_mail(@user)
           redirect_to @user
           # Handle a successful save.
         else
@@ -46,7 +46,9 @@ class UsersController < ApplicationController
     end
   end
 
- 
+  def send_welcome_mail (user)
+    UserMailer.welcomin_mail(user).deliver_now
+  end
   
   def edit
     @user = User.find(params[:id])
