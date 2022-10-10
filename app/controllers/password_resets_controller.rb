@@ -8,7 +8,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    #https://stackoverflow.com/questions/40035393/rails-tutorial-ch12-query-about-params
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
