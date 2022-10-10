@@ -21,7 +21,8 @@ class UsersController < ApplicationController
     if current_user && !current_user.admin?
       @user = User.new(user_params)
       @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
-      @user.image.attach(params[:user][:image])
+      #@user.image.attach(params[:user][:image])
+      set_image(@user)
         if @user.save
           send_welcome_mail(@user)
           reset_session
@@ -35,7 +36,8 @@ class UsersController < ApplicationController
     else
       @user = User.new(user_params)
       @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
-      @user.image.attach(params[:user][:image])
+      #@user.image.attach(params[:user][:image])
+      set_image(@user)
         if @user.save
           send_welcome_mail(@user)
           redirect_to @user
@@ -50,6 +52,10 @@ class UsersController < ApplicationController
     UserMailer.welcomin_mail(user).deliver_now
   end
   
+  def set_image(user)
+    user.image.attach(params[:user][:image])
+  end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -59,7 +65,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       if @user.image
         @user.update(image: nil)
-        @user.image.attach(params[:user][:image])
+        #@user.image.attach(params[:user][:image])
+        set_image(@user)
       else
         @user.image.attach(params[:user][:image])
       end
