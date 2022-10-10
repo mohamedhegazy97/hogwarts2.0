@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates_presence_of :name,:email,:password,:birth_date
   enum  hogwarts_house:  [:Gryffindor, :Hufflepuff ,:Slytherin ,:Ravenclaw]
   has_one_attached :image
   has_many :spells, dependent: :destroy
@@ -8,13 +9,11 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   attr_accessor :remember_token , :reset_token
   before_save { self.email = email.downcase }
-  validates :name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true , format:{ with: VALID_EMAIL_REGEX},uniqueness: true
+  validates :email, format:{ with: VALID_EMAIL_REGEX},uniqueness: true
   VALID_PASSWORD_REGEX = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/ 
   has_secure_password 
-  validates :password, presence: true, format:{ with: VALID_PASSWORD_REGEX}, allow_nil: true,unless: :skip_password_validation
-  validates :birth_date, presence: true  
+  validates :password, format:{ with: VALID_PASSWORD_REGEX}, allow_nil: true,unless: :skip_password_validation  
   validates :image,content_type: { in: %w[image/jpeg image/gif image/png image/svg],message: "must be a valid image format" }
   attr_accessor :skip_password_validation
 class << self
