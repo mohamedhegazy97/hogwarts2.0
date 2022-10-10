@@ -21,7 +21,6 @@ class UsersController < ApplicationController
     if current_user && !current_user.admin?
       @user = User.new(user_params)
       @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
-      #@user.image.attach(params[:user][:image])
       set_image(@user)
         if @user.save
           send_welcome_mail(@user)
@@ -36,7 +35,6 @@ class UsersController < ApplicationController
     else
       @user = User.new(user_params)
       @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
-      #@user.image.attach(params[:user][:image])
       set_image(@user)
         if @user.save
           send_welcome_mail(@user)
