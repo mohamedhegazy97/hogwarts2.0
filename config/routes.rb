@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   default_url_options :host => "localhost:3000"
-  get 'password_resets/new'
-  post 'password_resets/create'
-  get 'password_resets/edit'
-  post 'password_resets/update'
+  #get 'password_resets/new'
+  #post 'password_resets/create'
+  #get 'password_resets/edit'
+  #post 'password_resets/update'
   get 'sessions/new'
   get 'users/new'
   root 'static_pages#home'
