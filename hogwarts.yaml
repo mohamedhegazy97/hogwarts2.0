@@ -10,3 +10,8 @@ services:
     image: mohamedhegazy/hogwarts:v1
     ports:
     - "3000:3000"
+    volumes:
+      - hogwarts2.0:/home/node/app
+volumes:
+    hogwarts2.0:
+    

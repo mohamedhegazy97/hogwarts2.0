@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   def create
     if current_user && !current_user.admin?
       @user = User.new(user_params)
-      @user.hogwarts_house = ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
+      @user.hogwarts_house ["Gryffindor","Hufflepuff","Slytherin","Ravenclaw"].sample
       set_image(@user)
         if @user.save
           send_welcome_mail(@user)
@@ -78,15 +78,21 @@ class UsersController < ApplicationController
 
   def following
     @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.following
-    render 'show_follow'
+    set_user(true)
   end
     
   def followers
     @title = "Followers"
+    set_user(false)
+  end
+
+  def set_user(flag)
     @user = User.find(params[:id])
-    @users = @user.followers
+    if !flag 
+      @users = @user.followers
+    else
+      @users = @user.following
+    end
     render 'show_follow'
   end
 
@@ -99,7 +105,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,:password_confirmation,:bio,:ARMU,:birth_date,:image)
+      params.require(:user).permit(:name, :email, :password,:password_confirmation,:bio,:has_any_relative_muggle,:birth_date,:image)
     end
 
     

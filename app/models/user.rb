@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  validates_presence_of :name,:email,:password,:birth_date
-  enum  hogwarts_house:  [:Gryffindor, :Hufflepuff ,:Slytherin ,:Ravenclaw]
+  validates_presence_of :name,:email,:password,:birth_date,:hogwarts_house
+  enum  hogwarts_house: { Gryffindor: 'Gryffindor', Hufflepuff: 'Hufflepuff', Slytherin: 'Slytherin' , Ravenclaw: 'Ravenclaw'}
   has_one_attached :image
   has_many :spells, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",foreign_key: "follower_id",dependent: :destroy
